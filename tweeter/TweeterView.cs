@@ -20,7 +20,7 @@ namespace tweeter
     public class TweeterView : BindableBase
     {
         private string captcha = "captcha";
-        private string userName;
+        private UserName userName;
 
         private ICommand fnLogin;
         private ICommand fnOpenLoginUrl;
@@ -51,7 +51,7 @@ namespace tweeter
             }
         }
 
-        public string UserName
+        public UserName UserName
         {
             get
             {
