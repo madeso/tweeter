@@ -7,9 +7,10 @@
         <Grid.DataContext>
             <local:TweeterView/>
         </Grid.DataContext>
-        
-        <Button Content="Open URL" HorizontalAlignment="Left" Margin="98,44,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OpenLoginUrl}" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="51,117,0,0" TextWrapping="Wrap" Text="{Binding Path=Captcha}" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Login"  HorizontalAlignment="Left" Margin="174,164,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Login}"/>
+
+        <Button Content="Open URL" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="75" Command="{Binding OpenLoginUrl}" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,69,0,0" TextWrapping="Wrap" Text="{Binding Path=Captcha}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Login"  HorizontalAlignment="Left" Margin="135,72,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Login}"/>
+        <ListBox ItemsSource="{Binding Exceptions}" Margin="215,10,10,10"/>
     </Grid>
 </Window>

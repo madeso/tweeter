@@ -1,22 +1,29 @@
 ﻿namespace tweeter
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Tweetinvi;
+    using Tweetinvi.Core.Exceptions;
     using Tweetinvi.Core.Interfaces.Credentials;
 
     public static class TwitterUtil
     {
+        const string ConsumerKey = "u3wLAxnyYch9AyRr5A23oGPHG";
+        const string ConsumerSecret = "oaBHesBpIDUKpXEi0wy7fBYgVvDYI0xvEImVIGBMpXJmjxxxws";
+
+        private static ITemporaryCredentials applicationCredentials = null;
         public static ITemporaryCredentials ApplicationCredentials 
         {
             get
             {
-                ITemporaryCredentials credentials = null;
-                const string ConsumerKey = "u3wLAxnyYch9AyRr5A23oGPHG";
-                const string ConsumerSecret = "oaBHesBpIDUKpXEi0wy7fBYgVvDYI0xvEImVIGBMpXJmjxxxws";
-                credentials = CredentialsCreator.GenerateApplicationCredentials(ConsumerKey, ConsumerSecret);
-                return credentials;
+                if (applicationCredentials == null)
+                {
+                    applicationCredentials = CredentialsCreator.GenerateApplicationCredentials(ConsumerKey, ConsumerSecret);
+                }
+                return applicationCredentials;
             }
         }
 
@@ -27,16 +34,32 @@
             get
             {
                 var creds = ApplicationCredentials;
-                var ex = ExceptionHandler.GetExceptions().ToArray();
+                if (creds == null) return null;
                 var url = CredentialsCreator.GetAuthorizationURL(creds);
                 return url;
             }
         }
 
-        public static void GenerateCredentialsAndLogin(string captcha)
+        public static IEnumerable<ITwitterException> Exceptions
         {
-            var newCredentials = CredentialsCreator.GetCredentialsFromVerifierCode(captcha, ApplicationCredentials);
-            TwitterCredentials.SetCredentials(newCredentials);
+            get
+            {
+                var exs = ExceptionHandler.GetExceptions().ToArray();
+                return exs;
+            }
+        }
+
+        public static Credentials LoginWithCaptcha(string captcha)
+        {
+            var credentials = CredentialsCreator.GetCredentialsFromVerifierCode(captcha, ApplicationCredentials);
+            TwitterCredentials.SetCredentials(credentials);
+            if (credentials == null) return null;
+            return new Credentials(credentials.AccessToken, credentials.AccessTokenSecret);
+        }
+
+        public static void Login(Credentials credentials)
+        {
+            TwitterCredentials.SetCredentials(credentials.Token, credentials.Secret, ConsumerKey, ConsumerSecret);
         }
     }
 }

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace tweeter
 {
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Windows.Input;
 
     using Microsoft.Practices.Prism.Mvvm;
+
+    using Tweetinvi.Core.Exceptions;
 
     public class TweeterView : BindableBase
     {
@@ -17,6 +20,11 @@ namespace tweeter
 
         private ICommand fnLogin;
         private ICommand fnOpenLoginUrl;
+
+        public TweeterView()
+        {
+            this.Exceptions = new ObservableCollection<ITwitterException>();
+        }
 
         public string Captcha
         {
@@ -29,6 +37,8 @@ namespace tweeter
                 this.SetProperty(ref this.captcha, value);
             }
         }
+
+        public ObservableCollection<ITwitterException> Exceptions { get; set; }
 
         public ICommand Login
         {
@@ -46,15 +56,30 @@ namespace tweeter
             }
         }
 
+        private void UpdateExceptions()
+        {
+            foreach (var x in TwitterUtil.Exceptions)
+            {
+                if (false == this.Exceptions.Contains(x))
+                {
+                    this.Exceptions.Add(x);
+                }
+            }
+        }
+
         public void PerformLogin()
         {
-            TwitterUtil.GenerateCredentialsAndLogin(this.Captcha);
+            TwitterUtil.LoginWithCaptcha(this.Captcha);
+            this.UpdateExceptions();
         }
 
         public void PerformOpenLoginUrl()
         {
             var url = TwitterUtil.TwitterCaptchaPage;
-            Process.Start(url);
+            if (url != null) {
+                Process.Start(url);
+            }
+            this.UpdateExceptions();
         }
     }
 }

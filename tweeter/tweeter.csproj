@@ -149,6 +149,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Credentials.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TweeterView.cs" />
     <Compile Include="TwitterUtil.cs" />
