@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 
 namespace tweeter
 {
+    using Tweetinvi;
+    using Tweetinvi.Core.Interfaces.Credentials;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -22,7 +25,9 @@ namespace tweeter
     {
         public MainWindow()
         {
+            // var tweet = Tweet.PublishTweet("hello");
             InitializeComponent();
+            // this.DataContext = View;
         }
     }
 }
