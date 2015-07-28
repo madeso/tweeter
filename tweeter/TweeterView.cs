@@ -8,9 +8,12 @@ namespace tweeter
 {
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Windows;
     using System.Windows.Input;
 
     using Microsoft.Practices.Prism.Mvvm;
+
+    using tweeter.Properties;
 
     using Tweetinvi.Core.Exceptions;
 
@@ -20,6 +23,14 @@ namespace tweeter
 
         private ICommand fnLogin;
         private ICommand fnOpenLoginUrl;
+
+        private static Settings Set
+        {
+            get
+            {
+                return Properties.Settings.Default;
+            }
+        }
 
         public TweeterView()
         {
@@ -69,12 +80,35 @@ namespace tweeter
 
         public void PerformLogin()
         {
-            TwitterUtil.LoginWithCaptcha(this.Captcha);
+            if (this.NeedLogin())
+            {
+                var cred = TwitterUtil.LoginWithCaptcha(this.Captcha);
+                if (cred != null)
+                {
+                    Set.Token = cred.Token;
+                    Set.Secret = cred.Secret;
+                    Set.Save();
+                }
+            }
+            else
+            {
+                TwitterUtil.Login(new Credentials(Set.Token, Set.Secret));
+            }
             this.UpdateExceptions();
+        }
+
+        private bool NeedLogin()
+        {
+            return string.IsNullOrEmpty(Set.Secret);
         }
 
         public void PerformOpenLoginUrl()
         {
+            if (this.NeedLogin() == false)
+            {
+                MessageBox.Show("just hit login");
+                return;
+            }
             var url = TwitterUtil.TwitterCaptchaPage;
             if (url != null) {
                 Process.Start(url);
