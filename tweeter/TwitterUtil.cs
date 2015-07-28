@@ -61,5 +61,11 @@
         {
             TwitterCredentials.SetCredentials(credentials.Token, credentials.Secret, ConsumerKey, ConsumerSecret);
         }
+
+        public static string LoggedInUser()
+        {
+            var usr = User.GetLoggedUser();
+            return usr.ScreenName;
+        }
     }
 }

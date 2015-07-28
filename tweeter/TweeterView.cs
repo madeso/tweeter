@@ -20,9 +20,11 @@ namespace tweeter
     public class TweeterView : BindableBase
     {
         private string captcha = "captcha";
+        private string userName;
 
         private ICommand fnLogin;
         private ICommand fnOpenLoginUrl;
+
 
         private static Settings Set
         {
@@ -49,7 +51,19 @@ namespace tweeter
             }
         }
 
-        public ObservableCollection<ITwitterException> Exceptions { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return this.userName;
+            }
+            private set
+            {
+                this.SetProperty(ref this.userName, value);
+            }
+        }
+
+        public ObservableCollection<ITwitterException> Exceptions { get; private set; }
 
         public ICommand Login
         {
@@ -95,6 +109,7 @@ namespace tweeter
                 TwitterUtil.Login(new Credentials(Set.Token, Set.Secret));
             }
             this.UpdateExceptions();
+            this.UserName = TwitterUtil.LoggedInUser();
         }
 
         private bool NeedLogin()
