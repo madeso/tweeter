@@ -1,0 +1,5 @@
+﻿<m:TweeterView xmlns:m="clr-namespace:tweeter">
+    <m:TweeterView.UserName>
+        <m:UserName Real="James Bond" Screen="agent007"/>
+    </m:TweeterView.UserName>
+</m:TweeterView>

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="tweeter.Pages.main"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid d:DataContext="{d:DesignData Source=../DesignData/MockData.xaml}">
+        <Button Content="Open URL" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="110" Command="{Binding OpenLoginUrl}" />
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,75,0,0" TextWrapping="Wrap" Text="{Binding Path=Captcha}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Login"  HorizontalAlignment="Left" Margin="135,72,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Login}"/>
+        <ListBox ItemsSource="{Binding Exceptions}" Margin="215,10,10,10"/>
+        <TextBlock HorizontalAlignment="Left" Height="25" Margin="22,211,0,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Real}" VerticalAlignment="Top" Width="108"/>
+        <TextBlock HorizontalAlignment="Left" Height="25" Margin="22,186,0,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Screen}" VerticalAlignment="Top" Width="108"/>    
+    </Grid>
+</UserControl>

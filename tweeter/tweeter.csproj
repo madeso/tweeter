@@ -39,6 +39,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FirstFloor.ModernUI, Version=1.0.6.0, Culture=neutral, PublicKeyToken=2d21ec3cd074c59a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModernUI.WPF.1.0.6\lib\net45\FirstFloor.ModernUI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.Composition, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Composition.5.0.0\lib\NET45\Microsoft.Practices.Prism.Composition.dll</HintPath>
       <Private>True</Private>
@@ -150,10 +154,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Credentials.cs" />
+    <Compile Include="Pages\main.xaml.cs">
+      <DependentUpon>main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TweeterView.cs" />
+    <Compile Include="TweeterViewMock.cs" />
     <Compile Include="TwitterUtil.cs" />
     <Compile Include="UserName.cs" />
+    <DesignData Include="DesignData\MockData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -166,6 +178,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -2,6 +2,10 @@
 {
     public class UserName
     {
+        public UserName()
+        {
+        }
+
         public UserName(string screenName, string name)
         {
             this.Screen = screenName;

@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace tweeter
+namespace tweeter.Pages
 {
-    using FirstFloor.ModernUI.Windows.Controls;
-
-    using Tweetinvi;
-    using Tweetinvi.Core.Interfaces.Credentials;
-
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for main.xaml
     /// </summary>
-    public partial class MainWindow : ModernWindow
+    public partial class main : UserControl
     {
-        public MainWindow()
+        public main()
         {
-            // var tweet = Tweet.PublishTweet("hello");
             InitializeComponent();
-            // this.DataContext = View;
         }
     }
 }

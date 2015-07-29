@@ -57,7 +57,7 @@ namespace tweeter
             {
                 return this.userName;
             }
-            private set
+            set
             {
                 this.SetProperty(ref this.userName, value);
             }
