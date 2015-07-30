@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 namespace tweeter
 {
     using FirstFloor.ModernUI.Windows.Controls;
+    using FirstFloor.ModernUI.Windows.Navigation;
 
     using Tweetinvi;
     using Tweetinvi.Core.Interfaces.Credentials;
@@ -25,11 +26,21 @@ namespace tweeter
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
+        public void ChangePage(string newPage)
+        {
+            IInputElement target = NavigationHelper.FindFrame("_top", this);
+            NavigationCommands.GoToPage.Execute(newPage, target);
+        }
         public MainWindow()
         {
             // var tweet = Tweet.PublishTweet("hello");
             InitializeComponent();
-            // this.DataContext = View;
+            var t = this.DataContext as TweeterView;
+            if (t == null) return;
+            if (t.PerformAutoLogin())
+            {
+                this.ChangePage(@"/Pages/home.xaml");
+            }
         }
     }
 }

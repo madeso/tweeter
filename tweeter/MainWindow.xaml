@@ -13,7 +13,7 @@
     <mui:ModernWindow.MenuLinkGroups>
         <mui:LinkGroup DisplayName="twitter" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="Home" />
+                <mui:Link DisplayName="Home" Source="Pages/home.xaml"/>
                 <mui:Link DisplayName="DM" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>

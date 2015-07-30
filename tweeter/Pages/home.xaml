@@ -1,0 +1,14 @@
+﻿<Page x:Class="tweeter.Pages.home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="446" d:DesignWidth="536"
+	Title="home">
+
+    <Grid d:DataContext="{d:DesignData Source=../DesignData/MockData.xaml}">
+        <TextBlock Height="25" Margin="0,56,10,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Real}" VerticalAlignment="Top" TextAlignment="Right" HorizontalAlignment="Right" Width="331"/>
+        <TextBlock Height="46" Margin="0,10,10,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Screen}" VerticalAlignment="Top" FontSize="28" TextAlignment="Right" FontWeight="Bold" HorizontalAlignment="Right" Width="331"/>
+    </Grid>
+</Page>
