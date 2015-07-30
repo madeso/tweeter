@@ -16,6 +16,7 @@ namespace tweeter
     using tweeter.Properties;
 
     using Tweetinvi.Core.Exceptions;
+    using Tweetinvi.Core.Extensions;
 
     public class TweeterView : BindableBase
     {
@@ -91,6 +92,12 @@ namespace tweeter
 
         public void PerformLogin()
         {
+            if (Set.Secret.IsNullOrEmpty() == false)
+            {
+                MainWindow.Instance.ChangePage(@"/Pages/home.xaml");
+                return;
+            }
+
             TwitterUtil.ClearExceptions();
             var cred = TwitterUtil.LoginWithCaptcha(this.Captcha);
             if (cred != null)

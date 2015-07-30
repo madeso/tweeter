@@ -28,13 +28,21 @@ namespace tweeter
     {
         public void ChangePage(string newPage)
         {
-            IInputElement target = NavigationHelper.FindFrame("_top", this);
+            IInputElement target = NavigationHelper.FindFrame("_parent", this);
+            if (target == null) target = this;
             NavigationCommands.GoToPage.Execute(newPage, target);
         }
         public MainWindow()
         {
             // var tweet = Tweet.PublishTweet("hello");
             InitializeComponent();
+            Instance = this;
+        }
+
+        public static MainWindow Instance { get; private set; }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
             var t = this.DataContext as TweeterView;
             if (t == null) return;
             if (t.PerformAutoLogin())
