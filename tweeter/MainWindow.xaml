@@ -3,14 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:tweeter" x:Class="tweeter.MainWindow"
         xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-        Title="Tweeter" IsTitleVisible="True" Height="350" Width="525" ContentSource="Pages/main.xaml">
+        Title="Tweeter" IsTitleVisible="True" Height="350" Width="525" ContentSource="Pages/login.xaml">
 
+    <mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="Login" Source="Pages/login.xaml" />
+        <mui:Link DisplayName="Help" Source="https://github.com/madeso/tweeter" />
+    </mui:ModernWindow.TitleLinks>
+    
     <mui:ModernWindow.MenuLinkGroups>
-        <mui:LinkGroup DisplayName="group 1" >
+        <mui:LinkGroup DisplayName="twitter" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="link 1" />
-                <mui:Link DisplayName="link 2" />
-                <mui:Link DisplayName="link 3" />
+                <mui:Link DisplayName="Home" />
+                <mui:Link DisplayName="DM" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
     </mui:ModernWindow.MenuLinkGroups>
