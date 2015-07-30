@@ -36,7 +36,6 @@ namespace tweeter
 
         public TweeterView()
         {
-            this.Exceptions = new ObservableCollection<ITwitterException>();
         }
 
         public string Captcha
@@ -63,8 +62,6 @@ namespace tweeter
             }
         }
 
-        public ObservableCollection<ITwitterException> Exceptions { get; private set; }
-
         public ICommand Login
         {
             get
@@ -81,54 +78,64 @@ namespace tweeter
             }
         }
 
-        private void UpdateExceptions()
+        private bool ShowError()
         {
+            var ret = false;
             foreach (var x in TwitterUtil.Exceptions)
             {
-                if (false == this.Exceptions.Contains(x))
-                {
-                    this.Exceptions.Add(x);
-                }
+                MessageBox.Show(x.TwitterDescription, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ret = true;
             }
+            return ret;
         }
 
         public void PerformLogin()
         {
-            if (this.NeedLogin())
+            TwitterUtil.ClearExceptions();
+            var cred = TwitterUtil.LoginWithCaptcha(this.Captcha);
+            if (cred != null)
             {
-                var cred = TwitterUtil.LoginWithCaptcha(this.Captcha);
-                if (cred != null)
-                {
-                    Set.Token = cred.Token;
-                    Set.Secret = cred.Secret;
-                    Set.Save();
-                }
+                Set.Token = cred.Token;
+                Set.Secret = cred.Secret;
+                Set.Save();
             }
-            else
-            {
-                TwitterUtil.Login(new Credentials(Set.Token, Set.Secret));
-            }
-            this.UpdateExceptions();
-            this.UserName = TwitterUtil.LoggedInUser();
+            this.ShowError();
+            this.UpdateTweetData();
         }
 
-        private bool NeedLogin()
+        private void UpdateTweetData()
         {
-            return string.IsNullOrEmpty(Set.Secret);
+            TwitterUtil.ClearExceptions();
+            this.UserName = TwitterUtil.LoggedInUser();
+            this.ShowError();
+        }
+
+        public bool PerformAutoLogin()
+        {
+            if (false == string.IsNullOrEmpty(Set.Secret))
+            {
+                TwitterUtil.ClearExceptions();
+                TwitterUtil.Login(new Credentials(Set.Token, Set.Secret));
+                var err = this.ShowError();
+
+                if( err == false ) {
+                    this.UpdateTweetData();
+                }
+
+                return err == false;
+            }
+
+            return false;
         }
 
         public void PerformOpenLoginUrl()
         {
-            if (this.NeedLogin() == false)
-            {
-                MessageBox.Show("just hit login");
-                return;
-            }
+            TwitterUtil.ClearExceptions();
             var url = TwitterUtil.TwitterCaptchaPage;
             if (url != null) {
                 Process.Start(url);
             }
-            this.UpdateExceptions();
+            this.ShowError();
         }
     }
 }

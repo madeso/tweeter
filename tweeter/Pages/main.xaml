@@ -9,7 +9,6 @@
         <Button Content="Open URL" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="110" Command="{Binding OpenLoginUrl}" />
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,75,0,0" TextWrapping="Wrap" Text="{Binding Path=Captcha}" VerticalAlignment="Top" Width="120"/>
         <Button Content="Login"  HorizontalAlignment="Left" Margin="135,72,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Login}"/>
-        <ListBox ItemsSource="{Binding Exceptions}" Margin="215,10,10,10"/>
         <TextBlock HorizontalAlignment="Left" Height="25" Margin="22,211,0,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Real}" VerticalAlignment="Top" Width="108"/>
         <TextBlock HorizontalAlignment="Left" Height="25" Margin="22,186,0,0" TextWrapping="Wrap" Text="{Binding Path=UserName.Screen}" VerticalAlignment="Top" Width="108"/>    
     </Grid>

@@ -40,11 +40,11 @@
             }
         }
 
-        public static IEnumerable<ITwitterException> Exceptions
+        public static List<ITwitterException> Exceptions
         {
             get
             {
-                var exs = ExceptionHandler.GetExceptions().ToArray();
+                var exs = ExceptionHandler.GetExceptions().ToList();
                 return exs;
             }
         }
@@ -60,6 +60,11 @@
         public static void Login(Credentials credentials)
         {
             TwitterCredentials.SetCredentials(credentials.Token, credentials.Secret, ConsumerKey, ConsumerSecret);
+        }
+
+        public static void ClearExceptions()
+        {
+            ExceptionHandler.ClearLoggedExceptions();
         }
 
         public static UserName LoggedInUser()
