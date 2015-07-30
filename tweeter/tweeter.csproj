@@ -165,10 +165,18 @@
     <Compile Include="TweetView.cs" />
     <Compile Include="TwitterUtil.cs" />
     <Compile Include="UserName.cs" />
-    <DesignData Include="DesignData\MockData.xaml">
+    <DesignData Include="DesignData\TweeterMock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
+    <DesignData Include="DesignData\TweetMock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="global.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

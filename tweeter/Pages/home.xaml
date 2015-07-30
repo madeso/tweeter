@@ -7,7 +7,7 @@
       d:DesignHeight="446" d:DesignWidth="536"
 	Title="home">
 
-    <Grid d:DataContext="{d:DesignData Source=../DesignData/MockData.xaml}">
+    <Grid d:DataContext="{d:DesignData Source=../DesignData/TweeterMock.xaml}">
         <ListBox Margin="10,10,149,10" ItemsSource="{Binding HomeTweets}">
         </ListBox>
         

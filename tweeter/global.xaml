@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:tweeter"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    mc:Ignorable="d">
+    <DataTemplate DataType="{x:Type local:TweetView}">
+        <StackPanel>
+            <Grid d:DataContext="{d:DesignData Source=DesignData/TweetMock.xaml}">
+                <TextBlock Text="{Binding CreatedBy.Screen}" HorizontalAlignment="Stretch" Width="Auto" Height="25" VerticalAlignment="Top" Margin="0,0,139.65,0"/>
+                <TextBlock Text="{Binding CreatedBy.Real}" Margin="136,0,0,0" HorizontalAlignment="Stretch" Width="Auto" Height="25" VerticalAlignment="Top" TextAlignment="Right"/>
+                <TextBlock Text="{Binding Text}" Margin="0,25,0,0" Height="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto"/>
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>
