@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="TweeterView.cs" />
+    <Compile Include="TweetView.cs" />
     <Compile Include="TwitterUtil.cs" />
     <Compile Include="UserName.cs" />
     <DesignData Include="DesignData\MockData.xaml">

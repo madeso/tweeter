@@ -7,6 +7,7 @@
 
     using Tweetinvi;
     using Tweetinvi.Core.Exceptions;
+    using Tweetinvi.Core.Interfaces;
     using Tweetinvi.Core.Interfaces.Credentials;
 
     public static class TwitterUtil
@@ -49,6 +50,14 @@
             }
         }
 
+        public static IEnumerable<ITweet> HomeTweets
+        {
+            get
+            {
+                return Timeline.GetHomeTimeline();
+            }
+        }
+
         public static Credentials LoginWithCaptcha(string captcha)
         {
             var credentials = CredentialsCreator.GetCredentialsFromVerifierCode(captcha, ApplicationCredentials);
@@ -70,6 +79,11 @@
         public static UserName LoggedInUser()
         {
             var usr = User.GetLoggedUser();
+            return CreateUserName(usr); // new UserName(usr.ScreenName, usr.Name));
+        }
+
+        public static UserName CreateUserName(IUser usr)
+        {
             return new UserName(usr.ScreenName, usr.Name);
         }
     }

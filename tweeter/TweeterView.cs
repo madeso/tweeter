@@ -17,6 +17,7 @@ namespace tweeter
 
     using Tweetinvi.Core.Exceptions;
     using Tweetinvi.Core.Extensions;
+    using Tweetinvi.Core.Interfaces;
 
     public class TweeterView : BindableBase
     {
@@ -26,6 +27,10 @@ namespace tweeter
         private ICommand fnLogin;
         private ICommand fnOpenLoginUrl;
 
+        public ObservableCollection<TweetView> HomeTweets
+        {
+            get; set;
+        }
 
         private static Settings Set
         {
@@ -37,6 +42,7 @@ namespace tweeter
 
         public TweeterView()
         {
+            this.HomeTweets = new ObservableCollection<TweetView>();
         }
 
         public string Captcha
@@ -115,6 +121,46 @@ namespace tweeter
             TwitterUtil.ClearExceptions();
             this.UserName = TwitterUtil.LoggedInUser();
             this.ShowError();
+
+            Sync(this.HomeTweets, TwitterUtil.HomeTweets);
+        }
+
+        private void Sync(ObservableCollection<TweetView> dst, IEnumerable<ITweet> src)
+        {
+            var map = new Dictionary<long, TweetView>();
+            foreach (var t in dst)
+            {
+                map.Add(t.Id, t);
+            }
+
+            foreach (var tweet in src)
+            {
+                TweetView t;
+                if (map.ContainsKey(tweet.Id) == false)
+                {
+                    t = new TweetView { Id = tweet.Id };
+                    
+                    dst.Add(t);
+                }
+                else
+                {
+                    t = map[tweet.Id];
+                }
+                this.SyncTweet(t, tweet);
+            }
+        }
+
+        private void SyncTweet(TweetView t, ITweet tweet)
+        {
+            t.Favorited = tweet.Favourited;
+            t.FavoriteCount = tweet.FavouriteCount;
+            t.Retweeted = tweet.Retweeted;
+            t.RetweetCount = tweet.RetweetCount;
+            t.Text = tweet.Text;
+            t.Source = tweet.Source;
+            t.CreatedBy = TwitterUtil.CreateUserName(tweet.CreatedBy);
+            t.Date = tweet.CreatedAt;
+            // t.Media = tweet.Media;
         }
 
         public bool PerformAutoLogin()
